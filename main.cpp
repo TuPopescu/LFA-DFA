@@ -14,7 +14,7 @@ int main()
         cout << "Nu am reusit sa deschid fisierul\n";
         return 0;
     }
-    fin >> D;////
+    fin >> D;
     cout << D;
     fin.close();
 

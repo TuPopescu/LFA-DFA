@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
 using namespace std;
 #include "DFA.h"
 #define lung_cuvant 100
@@ -19,25 +20,29 @@ int main()
 
     char cuvant[lung_cuvant];
     ifstream cuv("Cuvant 1.txt");
+    ofstream fout("Check.txt");
     if (!cuv.is_open())
     {
         cout << "Nu am reusit sa deschid fisierul\n";
         return 0;
     }
-    while (!cuv.eof())
+    while (true)
     {
-        cuv.getline(cuvant,lung_cuvant);
-        cout << cuvant;
-        if (D.check_word(cuvant))
-        {
-            cout << " apartine DFA-ului dat.\n";
+        if (cuv.eof() != 0) {
+            cout << "Am ajuns la capatul fisierului.";
+            break;
         }
-        else
-        {
-            cout << " nu apartine DFA-ului dat.\n";
+        cuv.getline(cuvant,lung_cuvant);
+        cuvant[strlen(cuvant)-1]='\0';
+        fout << cuvant;
+        if (D.check_word(cuvant)) {
+            fout << " apartine DFA-ului dat.\n";
+        } else {
+            fout << " nu apartine DFA-ului dat.\n";
         }
     }
     cuv.close();
+    fout.close();
 
     return 0;
 }
